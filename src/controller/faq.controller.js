@@ -64,7 +64,6 @@ const fetchFAQs=asyncHandler(async (req,res)=>{
     
     const cachedFAQs=await redisClient.get(`faqs:${lang}`);
     if(cachedFAQs){
-        console.log("YEAH Cached successfully")
         return res.status(200).json(new ApiResponse(200,JSON.parse(cachedFAQs),'Faqs fetched Successfully'));
     }
 
@@ -78,7 +77,7 @@ const fetchFAQs=asyncHandler(async (req,res)=>{
     ]);
 
     await redisClient.set(`faqs:${lang}`,JSON.stringify(faqs),"EX",3000);
-    
+
     return res.status(200).json(new ApiResponse(200,faqs,'Faqs fetched Successfully'))
 })
 

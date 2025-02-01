@@ -1,8 +1,3 @@
-// const {
-//     GoogleGenerativeAI,
-//     HarmCategory,
-//     HarmBlockThreshold,
-//   } = require("@google/generative-ai");
   import {GoogleGenerativeAI,
     HarmCategory,
     HarmBlockThreshold,} from "@google/generative-ai"
