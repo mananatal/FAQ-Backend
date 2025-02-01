@@ -200,6 +200,24 @@ GET /api/v1/faq/?lang=hi
 }
 ```
 
+## `/api/v1/healthcheck` Endpoint  
+
+### Description  
+Checks the health status of the Server to ensure it is running properly. This endpoint can be used for monitoring and uptime checks.  
+
+### HTTP Method  
+`GET`  
+
+### Example Response  
+```json
+{
+    "statusCode": 200,
+    "message": "OK",
+    "data": {},
+    "success": true
+}
+```
+
 ## Contributing:
 Contributions are welcome! Feel free to open issues or submit pull requests to help improve this project.
 
