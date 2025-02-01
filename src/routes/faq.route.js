@@ -1,11 +1,15 @@
 import { Router } from "express";
-import { createFAQ } from "../controller/faq.controller.js";
+import { createFAQ ,fetchFAQs} from "../controller/faq.controller.js";
 
 
 const router=Router();
 
 router
 .route("/create")
-.post(createFAQ)
+.post(createFAQ);
+
+router
+.route("/")
+.get(fetchFAQs);
 
 export default router;

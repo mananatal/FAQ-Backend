@@ -5,6 +5,9 @@ import { chatSession } from "../lib/gemini.js";
 import { FAQ } from "../models/faq.model.js";
 
 
+
+const allowedLanguages=['en','hi','gu','mr','ta','ml'];
+
 const createFAQ=asyncHandler(async (req,res)=>{
     const {question,answer}=req.body;
 
@@ -51,9 +54,27 @@ const createFAQ=asyncHandler(async (req,res)=>{
     return res.status(200).json(new ApiResponse(200,createdFAQ,"FAQ Created Successfully"));
 });
 
+const fetchFAQs=asyncHandler(async (req,res)=>{
+    const lang=req.query.lang && allowedLanguages.includes(req.query.lang)?req.query.lang:'en' || 'en';
 
+    if(!lang){
+        throw new ApiError(400,"OOPS! cannot get lang");
+    }
+
+    const faqs = await FAQ.aggregate([
+        {
+            $project: {
+                question: { $getField: { field: "que", input: `$translations.${lang}` } },
+                answer: { $getField: { field: "ans", input: `$translations.${lang}` } }
+            }
+        }
+    ]);
+    
+    return res.status(200).json(new ApiResponse(200,faqs,"Faqs fetched Successfully"))
+})
 
 
 export {
-    createFAQ
+    createFAQ,
+    fetchFAQs
 }
