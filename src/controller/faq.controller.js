@@ -76,7 +76,7 @@ const fetchFAQs=asyncHandler(async (req,res)=>{
         }
     ]);
 
-    await redisClient.set(`faqs:${lang}`,JSON.stringify(faqs),"EX",3000);
+    await redisClient.set(`faqs:${lang}`,JSON.stringify(faqs),"EX",300);
 
     return res.status(200).json(new ApiResponse(200,faqs,'Faqs fetched Successfully'))
 })
